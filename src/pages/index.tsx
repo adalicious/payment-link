@@ -4,7 +4,6 @@ import { ColorRing } from "react-loader-spinner";
 import type { NextPage } from "next";
 import { useLovelace, useWallet, useWalletList } from "@meshsdk/react";
 import { Transaction } from "@meshsdk/core";
-import { tenant } from "@/config/tenant";
 import { Product } from "@/config/products";
 import { paymentCoin } from "@/config/coin";
 import { NotFound } from "@/fragments/not-found";
@@ -12,6 +11,7 @@ import { TxSubmitted } from "@/fragments/tx-submitted";
 import { coinGeckoADARate } from "@/helpers/ada-rate";
 import { postPublishTxSubmittedEvent } from "@/backend";
 import { verify } from "njwt";
+import { Tenant } from "@/config/tenant";
 
 // Random number to identify the tx metadata content
 export const METADATA_LABEL = 1894;
@@ -21,6 +21,11 @@ export async function getServerSideProps(context: { query: { token: string } }) 
 
   try {
 
+    const tenant: Tenant = {
+      name: process.env.TENANT_NAME || '',
+      logo: process.env.TENANT_LOGO || 'https://demeter.run/assets/logos/txpipe.svg',
+    }
+
     // Verifies token signature for getting the encoded claims
     const jwt = verify(token, process.env.JWT_SECRET);
     
@@ -29,6 +34,7 @@ export async function getServerSideProps(context: { query: { token: string } }) 
     if (!body) {
       return {
         props: {
+          tenant,
           recipient: "",
           pid: "",
           product: null,
@@ -52,6 +58,7 @@ export async function getServerSideProps(context: { query: { token: string } }) 
 
     return {
       props: {
+        tenant,
         pid: body["pid"]?.toString(),
         recipient: process.env.RECIPIENT!,
         product,
@@ -62,6 +69,7 @@ export async function getServerSideProps(context: { query: { token: string } }) 
     console.log(err);
     return {
       props: {
+        tenant: null,
         pid: "",
         recipient: "",
         product: null,
@@ -71,7 +79,8 @@ export async function getServerSideProps(context: { query: { token: string } }) 
   }
 }
 
-const Home: NextPage<{ pid: string; product: Product | null; adaRate: number, recipient: string }> = ({
+const Home: NextPage<{ tenant: Tenant | null, pid: string; product: Product | null; adaRate: number, recipient: string }> = ({
+  tenant,
   pid,
   product,
   adaRate,
@@ -134,7 +143,7 @@ const Home: NextPage<{ pid: string; product: Product | null; adaRate: number, re
       : "";
   }, [product]);
 
-  if (!product) return <NotFound />;
+  if (!product || !tenant) return <NotFound />;
 
   // Transaction has been submitted
   if (txHash) {
