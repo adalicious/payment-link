@@ -13,8 +13,6 @@ const LinkBuilder: NextPage = () => {
 
     setError("");
 
-    console.log("this was called");
-
     const data = {
       pid: event.target.name.value,
       name: event.target.name.value,
