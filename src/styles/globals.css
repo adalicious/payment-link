@@ -98,7 +98,7 @@
     @apply h-11 px-5 flex items-center w-fit uppercase text-sm font-semibold rounded-md bg-gray-700 text-gray-400 cursor-not-allowed transition-all select-none;
   }
   .btn-alert {
-    @apply h-11 px-5 flex items-center w-fit bg-gray-800 text-red-500 hover:text-red-300 uppercase text-sm font-semibold rounded-md disabled:bg-gray-700 disabled:text-gray-500 focus:outline-none focus:ring-1 focus:ring-red-900 focus:ring-opacity-75 transition-all select-none;
+    @apply h-11 px-5 flex items-center w-fit bg-slate-100 text-red-500 hover:text-red-300 uppercase text-sm font-semibold rounded-md focus:outline-none focus:ring-1 focus:ring-red-900 focus:ring-opacity-75 transition-all select-none;
   }
   .btn-primary-mini {
     @apply shadow-[0_0_6px_-3px_rgba(0,0,0,1)] h-7 px-2 flex items-center w-fit bg-accent1 hover:bg-opacity-70 text-gray-100  uppercase text-xs font-semibold rounded-md disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-blue-900 focus:ring-opacity-75 transition-all select-none;
@@ -155,10 +155,10 @@
     @apply rounded-md bg-slate-100 p-6;
   }
   .box-border {
-    @apply rounded-md border border-slate-200 p-6;
+    @apply rounded-md border border-slate-200 p-6 border-2;
   }
-  .box-black {
-    @apply rounded-md bg-gray-900 p-6;
+  .box-slate {
+    @apply rounded-md bg-slate-100 p-6;
   }
   .box-red {
     @apply rounded-md bg-red-600 bg-opacity-5 p-6;

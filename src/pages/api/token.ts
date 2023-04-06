@@ -9,7 +9,7 @@ import { create } from "njwt";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // @TODO: Handle errors properly
 
-  const claims = { pid: req.body.pid, name: req.body.name, price: req.body.price, currency: req.body.currency };
+  const claims = { pid: req.body.pid, products: req.body.products };
 
   const token = create(claims, req.body.jwt);
 

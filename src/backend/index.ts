@@ -1,3 +1,4 @@
+import { Product } from "@/config/products";
 import axios, { AxiosRequestConfig } from "axios";
 
 /**
@@ -45,6 +46,6 @@ export async function postPublishTxSubmittedEvent(pid: string, txHash: string) {
  * @param currency 
  * @returns 
  */
-export async function postGenerateToken(pid: string, name: string, price: number, currency: string, jwt: string) {
-  return await post(`/token`, { pid, name, price, currency, jwt });
+export async function postGenerateToken(pid: string, products: Product[], jwt: string) {
+  return await post(`/token`, { pid, products, jwt });
 }

@@ -1,12 +1,11 @@
 import { APIEvent } from "@/backend";
 import { publishEvent } from "@/backend/event-publisher.server";
 import { NextApiRequest, NextApiResponse } from "next";
-import { METADATA_LABEL } from "..";
+import { METADATA_LABEL } from "../pay";
 
 const VARIANT_TRANSACTION = "Transaction";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
   // Basic api-key authentication to validate the source of the webhook is oura
   const apiKey = req.headers["x-oura-api-key"]?.toString();
 
