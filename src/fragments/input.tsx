@@ -1,3 +1,5 @@
+import { ClassAttributes, InputHTMLAttributes } from "react";
+
 type TextInputProps = {
   name?: string;
   label?: string;
@@ -7,6 +9,7 @@ type TextInputProps = {
   placeholder?: string;
   className?: string;
   containerClasses?: string;
+  register?: JSX.IntrinsicAttributes & ClassAttributes<HTMLInputElement> & InputHTMLAttributes<HTMLInputElement>
 };
 
 export function TextField(props: TextInputProps) {
@@ -25,6 +28,7 @@ export function TextField(props: TextInputProps) {
         )}
         <input
           name={props.name}
+          {...props.register}
           placeholder={props.placeholder}
           defaultValue={props.value}
           key={props.value}

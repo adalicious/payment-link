@@ -28,9 +28,12 @@ const Home: NextPage<{
     <>
       <div className="h-fill flex flex-col items-center pt-24">
         <div className="wrapper-xs box-slate flex flex-col text-center items-center p-12">
-          <div className="box-slate">
-            <h1 className="title-xl">{tenant.name}</h1>
-            <p className="text-gray-400 mt-2 title-lg">Effortlessly create secure links to receive payments in ADA</p>
+          <div className="box-slate flex flex-col items-center">
+            <div className="flex">
+              <img src={tenant.logo} alt="" className="w-10" />
+              <h1 className="title-xl text-gray-600 ml-4">{tenant.name}</h1>
+            </div>
+            <p className="text-gray-400 mt-6 title-lg">Effortlessly create secure links to receive payments in ADA</p>
           </div>
           <button className="btn-primary mt-12 items-center" onClick={() => router.push("/linkbuilder")}>
             Create Payment Link

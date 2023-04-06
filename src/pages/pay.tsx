@@ -134,7 +134,7 @@ const Home: NextPage<{
   }, []);
 
   const currency = useMemo(() => {
-    return products[0].price.currency;
+    return products.length ? products[0].price.currency : 'usd';
   }, [products]);
 
   const totalInCurrency = products.reduce((acc, s) => acc + s.price.amount, 0);
