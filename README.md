@@ -112,7 +112,7 @@ We are planning on adding more customizations options in the future, but for now
 We really want to make it easy for anymore to deploy their own payment forms. As part of this starter kit we provide a public docker image you can use for deploying your own instance of Adalicious.
 
 ```
-ghcr.io/txpipe/ada-payments-starter-kit:a1218f1447342b5e37627b4d7b016e0e1d367f08
+ghcr.io/txpipe/ada-payments-starter-kit:238b35b0703de1fbf91fb00a2cb4c8b0e0e32ada
 ```
 
 ### 1 - Create a Container in Demeter
