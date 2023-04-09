@@ -28,8 +28,6 @@ export async function getServerSideProps(context: { query: { token: string } }) 
     // Verifies token signature for getting the encoded claims
     const jwt = verify(token, process.env.JWT_SECRET);
 
-    console.log(token);
-
     const body = jwt?.body.toJSON();
 
     if (!body) {
@@ -90,34 +88,6 @@ const Home: NextPage<{
   // Gets a list of wallets installed on user's device.
   const wallets = useWalletList();
 
-  let totalPriceADA = 0;
-  const buildAndSubmitTx = useCallback(async () => {
-    try {
-      setError("");
-      setLoading(true);
-
-      const tx = new Transaction({ initiator: wallet }).sendLovelace(
-        recipient,
-        Math.floor(totalPriceADA * 1000000).toString()
-      );
-
-      tx.setMetadata(METADATA_LABEL, { pid });
-
-      const unsignedTx = await tx.build();
-      const signedTx = await wallet.signTx(unsignedTx);
-      const txHash = await wallet.submitTx(signedTx);
-
-      await postPublishTxSubmittedEvent(pid, txHash);
-
-      setTxHash(txHash);
-      setLoading(false);
-    } catch (error: any) {
-      console.log(error);
-      setLoading(false);
-      setError(error.message?.info || "An Error ocurred while submitting the payment.");
-    }
-  }, [totalPriceADA, pid, wallet, recipient]);
-
   const balance: number | undefined = useMemo(() => {
     return lovelace ? parseInt((parseInt(lovelace, 10) / 1_000_000).toString(), 10) : undefined;
   }, [lovelace]);
@@ -139,6 +109,33 @@ const Home: NextPage<{
 
   const totalInCurrency = products.reduce((acc, s) => acc + s.price.amount, 0);
   const totalInADA = products.reduce((acc, s) => acc + s.price.amount, 0) / 100 / adaRate;
+
+  const buildAndSubmitTx = useCallback(async () => {
+    try {
+      setError("");
+      setLoading(true);
+
+      const tx = new Transaction({ initiator: wallet }).sendLovelace(
+        recipient,
+        Math.floor(totalInADA * 1000000).toString()
+      );
+
+      tx.setMetadata(METADATA_LABEL, { pid });
+
+      const unsignedTx = await tx.build();
+      const signedTx = await wallet.signTx(unsignedTx);
+      const txHash = await wallet.submitTx(signedTx);
+
+      await postPublishTxSubmittedEvent(pid, txHash);
+
+      setTxHash(txHash);
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      setError(error.message?.info || "An Error ocurred while submitting the payment.");
+    }
+  }, [totalInADA, pid, wallet, recipient]);
 
   if (!products.length || !tenant) return <NotFound />;
 

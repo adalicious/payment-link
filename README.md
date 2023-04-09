@@ -228,6 +228,9 @@ You are now ready to create the instance.
 
 Once your Webhook is Running you should be ready to go. Every time a payment is received in your wallet address you will get a notification pushed to your discord server.
 
+<img src="public/discord-example.png" alt="discord-example">
+
+
 
 
 

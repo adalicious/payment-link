@@ -5,6 +5,11 @@ import { METADATA_LABEL } from "../pay";
 
 const VARIANT_TRANSACTION = "Transaction";
 
+type TxOutput = {
+  address: string,
+  amount: number,
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Basic api-key authentication to validate the source of the webhook is oura
   const apiKey = req.headers["x-oura-api-key"]?.toString();
@@ -23,6 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   let pid = "";
 
+  const outputs: TxOutput[] = req.body.transaction.outputs;
+  const ada = outputs.find((v) => v.address === process.env.RECIPIENT)?.amount;
+
   for (const data of metadata) {
     try {
       if (data.label === METADATA_LABEL.toString()) {
@@ -36,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Publishes the event with teh transaction id confirmed
-  await publishEvent(APIEvent.TX_CONFIRMED, { pid, txHash });
+  await publishEvent(APIEvent.TX_CONFIRMED, { pid, txHash, ada });
 
   return res.status(200).end();
 }

@@ -16,11 +16,20 @@ export async function publishEvent(event: APIEvent, body: any): Promise<void> {
         inline: false,
       },
       {
-        name: "p-id",
+        name: "Unique Id",
         value: body.pid || "",
         inline: false,
       },
     ];
+
+    if (body.ada) {
+      fields.push(
+        {
+          name: 'ADA',
+          value: `₳ ${(body.ada  / 1_000_000).toFixed(6)}`,
+          inline: false,
+        });
+    }
 
     console.log(`publishing event: ${event}`);
 
