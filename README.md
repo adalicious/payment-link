@@ -4,7 +4,7 @@
   <br>
   <a href="http://txpipe.io"><img src="public/adalicious.png" alt="Adalicious" width="100"></a>
   <br>
-  Adalicious
+  Adalicious - ADA Payment Links
   <br>
 </h1>
 
@@ -20,7 +20,7 @@
 
 ## Introduction
 
-Adalicious is a simple tool designed for those who want to easily receive payments in ADA. With Adalicious, you can create a simple payment link that you can share with your customers, allowing them to pay you in ADA quickly and securely. Whether you're a freelancer, a business owner, or simply someone who wants to accept payments in ADA, Adalicious provides a user-friendly and reliable solution. 
+This tool is designed for those who want to easily receive payments in ADA. With Adalicious - ADA Payment Links, you can create a simple payment link that you can share with your customers, allowing them to pay you in ADA quickly and securely. Whether you're a freelancer, a business owner, or simply someone who wants to accept payments in ADA, Adalicious provides a user-friendly and reliable solution. 
 
 <img src="public/payment-link-example.png" alt="example-result">
 
