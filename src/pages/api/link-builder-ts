@@ -1,0 +1,20 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { create } from "njwt";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const data = { pid: req.body.pid, products: req.body.products };
+
+    const url = req.body.url;
+
+    const token = create(data, process.env.JWT_SECRET);
+
+    // Sets the token expiration to one hour
+    token.setExpiration(new Date().getTime() + 60 * 60 * 1000);
+
+    const value = token.compact();
+
+    const link = `${url}/pay?token=${value}`;
+
+    res.status(200).json({ url: link });
+
+}
